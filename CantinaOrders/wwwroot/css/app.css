@@ -105,7 +105,7 @@ h2 { font-size: 1.25rem; }
 .brand-text strong span { color: var(--cyan); }
 .brand-text small { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 
-.nav { display: flex; gap: 6px; }
+.nav { display: flex; flex-wrap: wrap; gap: 6px; }
 .nav a {
   padding: 8px 16px;
   border: 1px solid transparent;

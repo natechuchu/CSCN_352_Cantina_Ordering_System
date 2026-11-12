@@ -91,6 +91,18 @@ function show(nextOrder) {
   renderTicket();
 }
 
+// If the server rejects an action (for example, another device already closed this order),
+// say why and reload the real state. If the server can't be reached, flag it in the Live badge.
+function handleError(err) {
+  if (err instanceof api.ApiError && err.status > 0) {
+    alert(err.message);
+    lastSnapshot = '';
+    loadOrder();
+  } else {
+    setSync(false);
+  }
+}
+
 async function loadOrder() {
   if (!table) { show(null); return; }
   try {
@@ -121,22 +133,34 @@ menuEl.addEventListener('click', async e => {
     button.classList.remove('added');
     void button.offsetWidth; // restart the glow animation
     button.classList.add('added');
-  } catch {
-    setSync(false);
+  } catch (err) {
+    handleError(err);
   }
 });
 
 ticketEl.addEventListener('click', async e => {
   const remove = e.target.closest('[data-remove]');
   if (remove && order) {
-    try { show(await api.removeItem(order.id, Number(remove.dataset.remove))); setSync(true); } catch { setSync(false); }
+    try { show(await api.removeItem(order.id, Number(remove.dataset.remove))); setSync(true); } catch (err) { handleError(err); }
     return;
   }
   if (e.target.closest('[data-close]') && order) {
     if (!confirm(`Close order #${order.id} for Table ${table}? Subtotal ${money(order.subtotal)}.`)) return;
-    try { await api.closeOrder(order.id); location.href = 'index.html'; } catch { setSync(false); }
+    try { await api.closeOrder(order.id); location.href = 'index.html'; } catch (err) { handleError(err); }
   }
 });
 
-renderMenu().then(loadOrder);
-setInterval(loadOrder, 5000);
+// Load the menu first (retrying if the server is down), then keep the ticket in sync.
+async function start() {
+  try {
+    await renderMenu();
+  } catch {
+    setSync(false);
+    setTimeout(start, 5000);
+    return;
+  }
+  loadOrder();
+  setInterval(loadOrder, 5000);
+}
+
+start();
