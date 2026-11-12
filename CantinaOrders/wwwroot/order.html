@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Order · Cantina Orders</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600&family=Orbitron:wght@500;700&display=swap">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text">
+        <strong>CANTINA <span>ORDERS</span></strong>
+        <small>Outer Rim Refueling &amp; Refreshment</small>
+      </span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html">Floor</a>
+      <a href="order.html" aria-current="page">Order</a>
+      <a href="history.html">History</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">Take an order</p>
+        <h1 id="order-title">New order</h1>
+      </div>
+      <p class="sync" id="sync"><span class="dot" aria-hidden="true"></span><span class="sync-text">Connecting…</span></p>
+    </div>
+
+    <div class="card controls">
+      <label>Table
+        <select id="table"><option value="">Choose a table…</option></select>
+      </label>
+      <label>Server
+        <select id="waiter"></select>
+      </label>
+    </div>
+
+    <div class="order-layout">
+      <section class="card" id="menu" aria-label="Menu"></section>
+      <aside class="card panel" id="ticket" aria-live="polite"></aside>
+    </div>
+  </main>
+
+  <script src="js/common.js" defer></script>
+  <script src="js/api.js" defer></script>
+  <script src="js/order.js" defer></script>
+</body>
+</html>
