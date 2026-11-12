@@ -1,8 +1,6 @@
 # Build output
 bin/
 obj/
-publish/
-
 # Local database (each server keeps its own)
 App_Data/
 

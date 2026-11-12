@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Floor · Cantina Orders</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600&family=Orbitron:wght@500;700&display=swap">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text">
+        <strong>CANTINA <span>ORDERS</span></strong>
+        <small>Outer Rim Refueling &amp; Refreshment</small>
+      </span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html" aria-current="page">Floor</a>
+      <a href="order.html">Order</a>
+      <a href="history.html">History</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">Cantina Operations</p>
+        <h1>Floor Plan</h1>
+        <p class="lede">Select a table to see its open order.</p>
+      </div>
+      <p class="sync" id="sync"><span class="dot" aria-hidden="true"></span><span class="sync-text">Connecting…</span></p>
+    </div>
+
+    <div class="floor-layout">
+      <section class="card floor-card" aria-label="Cantina floor plan">
+        <svg class="floor" viewBox="0 0 1000 690" role="group" aria-label="Tables">
+          <defs>
+            <pattern id="deck" width="40" height="40" patternUnits="userSpaceOnUse">
+              <rect width="40" height="40" fill="#070c1a"/>
+              <path d="M40 0H0V40" fill="none" stroke="rgba(120,170,255,0.07)" stroke-width="1"/>
+            </pattern>
+          </defs>
+
+          <!-- Room, deck plating, and outer walls (gap at the bottom is the entrance) -->
+          <rect x="20" y="20" width="960" height="640" fill="url(#deck)"/>
+          <path class="wall" d="M440 660 H20 V20 H980 V660 H560"/>
+
+          <!-- Viewport window along the booth wall -->
+          <path class="viewport" d="M20 170 V590"/>
+          <text class="fixture-label small" x="34" y="380" transform="rotate(-90 34 380)">VIEWPORT</text>
+
+          <!-- Bar with stools -->
+          <rect class="fixture" x="180" y="36" width="560" height="52" rx="12"/>
+          <rect class="bar-strip" x="196" y="82" width="528" height="3" rx="1.5"/>
+          <text class="fixture-label" x="460" y="60">BAR</text>
+          <g id="stools"></g>
+
+          <!-- Kitchen in the corner, door on its lower edge -->
+          <rect class="fixture" x="790" y="20" width="190" height="130"/>
+          <path class="wall" d="M790 20 V150 H840 M920 150 H980"/>
+          <text class="fixture-label" x="885" y="80">KITCHEN</text>
+
+          <!-- Host stand and entrance -->
+          <rect class="fixture" x="465" y="600" width="70" height="26" rx="6"/>
+          <text class="fixture-label small" x="500" y="613">HOST</text>
+          <text class="fixture-label small" x="500" y="678">ENTRANCE</text>
+
+          <!-- Tables are drawn by js/floor.js -->
+          <g id="tables-layer"></g>
+        </svg>
+
+        <div class="legend">
+          <span><i class="swatch"></i>Available</span>
+          <span><i class="swatch open"></i>Open order</span>
+          <span><i class="swatch window"></i>Viewport window</span>
+        </div>
+      </section>
+
+      <aside class="card panel" id="panel" aria-live="polite"></aside>
+    </div>
+  </main>
+
+  <script src="js/common.js" defer></script>
+  <script src="js/api.js" defer></script>
+  <script src="js/floor.js" defer></script>
+</body>
+</html>
