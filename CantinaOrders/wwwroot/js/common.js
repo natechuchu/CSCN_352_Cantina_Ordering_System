@@ -15,7 +15,8 @@ const TABLES = [
 
 const WAITERS = ['WaiterBot002', 'WaiterBot003', 'DrinkBot001', 'HostessBot006', 'ManagerBot007'];
 
-const money = v => '$' + Number(v).toFixed(2);
+// Prices are shown in Galactic credits: ξ (written as an escape so it survives any file encoding).
+const money = v => 'ξ' + Number(v).toFixed(2);
 const timeOf = d => new Date(d).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
 const dateTime = d => new Date(d).toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
